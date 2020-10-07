@@ -3,6 +3,7 @@ package android.eservices.dynamicfragmentmenu;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,10 @@ public class FavoritesFragment extends Fragment {
         //TODO if available, restore the state of the current counter
         //TODO if there is no value to restore, set the counter to default value 4
         //TODO finally call refreshCounter to update the display
+        Log.e("on created", "je suis là");
+        counterTextView.setText("4");
+        currentCounter = 4;
+        this.refreshCounter();
 
     }
 
