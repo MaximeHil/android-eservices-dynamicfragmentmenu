@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationInterfa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("On create main activity", savedInstanceState.toString());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupNavigationElements();
@@ -51,7 +52,16 @@ public class MainActivity extends AppCompatActivity implements NavigationInterfa
 
         //Let's imagine we retrieve the stored counter state, before creating the favorite Fragment
         //and then be able to update and manage its state.
-        updateFavoriteCounter(3);
+        if (savedInstanceState != null) {
+            Log.i("Dans le on create", "On est dans le if");
+            currentFragment = getSupportFragmentManager().getFragment(savedInstanceState, "currentFragment");
+            replaceFragment(currentFragment);
+            int index = savedInstanceState.getInt(FRAGMENT_NUMBER_KEY);
+            fragmentArray.put(index, currentFragment);
+        } else {
+            updateFavoriteCounter(3);
+
+        }
     }
 
     @Override
@@ -139,4 +149,14 @@ public class MainActivity extends AppCompatActivity implements NavigationInterfa
     //Reminder, to get the selected item in the menu, we can use myNavView.getCheckedItem()
     //TODO then save the current state of the fragment, you may read https://stackoverflow.com/questions/15313598/once-for-all-how-to-correctly-save-instance-state-of-fragments-in-back-stack
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(FRAGMENT_NUMBER_KEY, navigationView.getCheckedItem().getOrder());
+
+        getSupportFragmentManager().putFragment(outState, "currentFragment", currentFragment);
+        super.onSaveInstanceState(outState);
+        Log.i("Dans le save", "State saved");
+
+    }
 }
