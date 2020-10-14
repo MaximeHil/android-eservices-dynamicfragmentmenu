@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 public class FavoritesFragment extends Fragment {
 
     public static final String COUNTER_STATE_KEY = "CounterState";
+    private boolean initialized;
     private View rootView;
     private NavigationInterface navigationInterface;
     private Integer currentCounter;
@@ -57,19 +58,23 @@ public class FavoritesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         System.out.println("On activity created " + this);
         setupButtons();
+        if(!initialized){
+            if(savedInstanceState != null){
+                currentCounter = savedInstanceState.getInt("counter");
+                counterTextView.setText(String.valueOf(this.currentCounter));
+                Log.i("Dans le if", "voilà : " + currentCounter);
+            }else {
+                Log.i("Dans le else", "voilà");
+                counterTextView.setText("4");
+                currentCounter = 4;
+            }
+            initialized = true;
+        }
 
         //TODO if available, restore the state of the current counter
         //TODO if there is no value to restore, set the counter to default value 4
         //TODO finally call refreshCounter to update the display
-        if(savedInstanceState != null){
-            currentCounter = savedInstanceState.getInt("counter");
-            counterTextView.setText(String.valueOf(this.currentCounter));
-            Log.i("Dans le if", "voilà : " + currentCounter);
-        }else {
-            Log.i("Dans le else", "voilà");
-            counterTextView.setText("4");
-            currentCounter = 4;
-        }
+
 
         this.refreshCounter();
 

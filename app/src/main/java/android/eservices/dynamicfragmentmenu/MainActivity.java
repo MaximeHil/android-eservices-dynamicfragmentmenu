@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationInterfa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("On create main activity", savedInstanceState.toString());
+        //Log.i("On create main activity", savedInstanceState.toString());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupNavigationElements();
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationInterfa
             int index = savedInstanceState.getInt(FRAGMENT_NUMBER_KEY);
             fragmentArray.put(index, currentFragment);
         } else {
-            updateFavoriteCounter(3);
+            //updateFavoriteCounter(3);
 
         }
     }
